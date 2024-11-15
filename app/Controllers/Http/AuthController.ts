@@ -55,13 +55,13 @@ export default class AuthController {
                 isConfirmed: false
             });
             await user.save();
-            await Mail.send((message) => {
+/*             await Mail.send((message) => {
                 message
                     .to(email)
                     .from("david.gmzherrera28@gmail.com")
                     .subject('Confirma tu correo')
                     .htmlView('confirmation', { name, confirmationCode }); 
-            });
+            }); */
             const token = await auth.use('api').attempt(email, password);
             Ws.io.emit('new:user', user)
             return response.status(201).json({
