@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import Ws from 'App/Services/WebSocketService';
-// import Mail from '@ioc:Adonis/Addons/Mail';
+import Mail from '@ioc:Adonis/Addons/Mail';
 export default class AuthController {
     public async login({ request, auth, response }: HttpContextContract) {
         try {
@@ -55,13 +55,13 @@ export default class AuthController {
                 isConfirmed: false
             });
             await user.save();
-            // await Mail.send((message) => {
-            //     message
-            //         .to(email)
-            //         .from("david.gmzherrera28@gmail.com")
-            //         .subject('Confirma tu correo')
-            //         .htmlView('confirmation', { name, confirmationCode }); 
-            // });
+            await Mail.send((message) => {
+                message
+                    .to(email)
+                    .from("david.gmzherrera28@gmail.com")
+                    .subject('Confirma tu correo')
+                    .htmlView('confirmation', { name, confirmationCode }); 
+            });
             const token = await auth.use('api').attempt(email, password);
             Ws.io.emit('new:user', user)
             return response.status(201).json({
