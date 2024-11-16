@@ -1,7 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import Ws from 'App/Services/WebSocketService';
-import Mail from '@ioc:Adonis/Addons/Mail';
+/* import Mail from '@ioc:Adonis/Addons/Mail'; */
 export default class AuthController {
     public async login({ request, auth, response }: HttpContextContract) {
         try {
