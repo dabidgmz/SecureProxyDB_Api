@@ -12,8 +12,8 @@ export default class extends BaseSchema {
       table.string('remember_me_token').nullable()
       table.string('confirmation_code', 255).nullable()
       table.boolean('is_confirmed').defaultTo(false)
-      table.timestamp('created_at', { useTz: true })
-      table.timestamp('updated_at', { useTz: true })
+      table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
+      table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })
   }
 
